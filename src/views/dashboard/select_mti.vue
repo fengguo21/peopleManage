@@ -1,0 +1,158 @@
+<template>
+  <div class="container">
+    <div class="editbox" @click="toggle">
+      <i class="el-icon-edit edit"/>
+    </div>
+
+    <div class="selectoptionBox" v-show="showPannel">
+      <div class="search_icon">
+        <svg-icon icon-class="search"/>
+      </div>
+
+      <div class="input">
+
+        <input>
+      </div>
+      <div v-if="list.length>0" class="scrolling menu" v-infinite-scroll="load" style="overflow:auto">
+        <div @click="selectItem(item)" v-for="item in list" class="item" data-value="0">{{item.name}}</div>
+      </div>
+      <div v-else class="message ">未找到合适的结果</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'SelectMti',
+  data() {
+    return {
+      selected: {id: 3, name: '无里程碑'},
+      showPannel: false,
+      selectedItem: null,
+      list: [
+        {id: 1, name: '无里程碑'},
+        {id: 2, name: '无里程碑'},
+        {id: 3, name: '无里程碑'},
+        {id: 4, name: '无里程碑'},
+        {id: 5, name: '无里程碑'},
+        {id: 6, name: '无里程碑'},
+        {id: 7, name: '无里程碑'},
+        {id: 8, name: '无里程碑'},
+        {id: 9, name: '无里程碑'},
+      ]
+    }
+  },
+  methods: {
+    load() {
+      this.list.push({id: 9, name: '无里程碑'})
+    },
+    toggle() {
+      this.showPannel = !this.showPannel
+    },
+    selectItem(item) {
+      this.selectedItem = item
+      this.$emit('selectItem',item)
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+  .container {
+    position: absolute;
+
+    .editbox {
+      padding: 2px;
+      cursor: pointer;
+
+      .edit {
+        color: #4a90e2;
+
+      }
+    }
+
+
+    .selectoptionBox {
+      display: inline-block;
+      top: 26px;
+      left: 0;
+      position: absolute;
+      min-width: 220px;
+      min-height: 142px;
+      border: 0;
+      border-radius: 0;
+      background: #FFF;
+
+      box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15) !important;
+
+      .search_icon {
+        position: absolute;
+        /*margin: 1.14285714rem 0.78571429rem;*/
+        height: 34px;
+        margin-left: 1.5em;
+        margin-top: 1.1em;
+        display: flex;
+        color: rgba(0, 0, 0, 0.8);
+        align-items: center;
+
+      }
+
+      .input {
+        display: flex;
+        margin: 1em;
+
+        input {
+          height: 34px;
+          padding-left: 2em;
+          box-shadow: none;
+          width: 100%;
+          border-radius: 3px;
+          border: 1px solid #dfe3e9;
+
+          &:focus {
+            border-color: rgba(254, 115, 0, 0.5);
+            outline: none;
+          }
+        }
+      }
+
+      .message {
+        color: rgba(0, 0, 0, 0.4);
+        line-height: 1.333;
+        padding: 0.78571429rem 1.14285714rem !important;
+
+        padding-top: 0.7142857rem !important;
+        padding-bottom: 0.7142857rem !important;
+      }
+
+      .menu {
+        max-height: 170px;
+        overflow-y: auto;
+
+        .item {
+          line-height: 1.333;
+          padding-top: 0.7142857rem !important;
+          padding-bottom: 0.7142857rem !important;
+          position: relative;
+          cursor: pointer;
+          display: block;
+          height: auto;
+          text-align: left;
+          border-top: none;
+          line-height: 1em;
+          color: rgba(0, 0, 0, 0.87);
+          padding: 0.78571429rem 1.14285714rem !important;
+          font-size: 1rem;
+          text-transform: none;
+          font-weight: normal;
+
+          &:hover {
+            background: rgba(200, 200, 200, .6);
+          }
+        }
+      }
+    }
+
+  }
+
+</style>
