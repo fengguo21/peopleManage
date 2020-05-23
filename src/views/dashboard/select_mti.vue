@@ -4,17 +4,25 @@
       <i class="el-icon-edit edit"/>
     </div>
 
-    <div class="selectoptionBox" v-show="showPannel">
+    <div v-show="showPannel" class="selectoptionBox">
       <div class="search_icon">
         <svg-icon icon-class="search"/>
       </div>
 
       <div class="input">
 
-        <input>
+        <input v-model.lazy.trim="keyword" :placeholder="palaceholder" @input="search($event)">
       </div>
-      <div v-if="list.length>0" class="scrolling menu" v-infinite-scroll="load" style="overflow:auto">
-        <div @click="selectItem(item)" v-for="item in list" class="item" data-value="0">{{item.name}}</div>
+      <div v-if="list.length>0" v-infinite-scroll="load" class="scrolling menu">
+        <div
+          :key="item.id"
+          v-for="item in list"
+          class="item"
+          :class="{'active':current&&item.id === current.id}"
+          data-value="0"
+          @click="selectItem(item)"
+        >{{ item.name }}
+        </div>
       </div>
       <div v-else class="message ">未找到合适的结果</div>
     </div>
@@ -24,34 +32,45 @@
 <script>
 export default {
   name: 'SelectMti',
+  props: {
+    current: {
+      type: Object,
+      default: null
+    },
+    list: {
+      type: Array,
+      default: null
+    },
+    palaceholder:{
+      type:String,
+      default: '输入搜索...'
+    }
+  },
   data() {
     return {
       selected: {id: 3, name: '无里程碑'},
       showPannel: false,
       selectedItem: null,
-      list: [
-        {id: 1, name: '无里程碑'},
-        {id: 2, name: '无里程碑'},
-        {id: 3, name: '无里程碑'},
-        {id: 4, name: '无里程碑'},
-        {id: 5, name: '无里程碑'},
-        {id: 6, name: '无里程碑'},
-        {id: 7, name: '无里程碑'},
-        {id: 8, name: '无里程碑'},
-        {id: 9, name: '无里程碑'},
-      ]
+      keyword: '',
     }
   },
   methods: {
     load() {
-      this.list.push({id: 9, name: '无里程碑'})
+      this.$emit('load')
     },
     toggle() {
       this.showPannel = !this.showPannel
     },
     selectItem(item) {
-      this.selectedItem = item
-      this.$emit('selectItem',item)
+      // this.selectedItem = item
+      this.$emit('selectItem', item)
+      this.showPannel = false
+    },
+    search(e) {
+      console.log(e.target)
+
+
+      this.$emit('search', e.target.value)
     }
   }
 }
@@ -70,7 +89,6 @@ export default {
 
       }
     }
-
 
     .selectoptionBox {
       display: inline-block;
@@ -130,6 +148,7 @@ export default {
         overflow-y: auto;
 
         .item {
+          white-space: nowrap;
           line-height: 1.333;
           padding-top: 0.7142857rem !important;
           padding-bottom: 0.7142857rem !important;
@@ -145,6 +164,10 @@ export default {
           font-size: 1rem;
           text-transform: none;
           font-weight: normal;
+
+          &.active {
+            background: rgba(200, 200, 200, .6);
+          }
 
           &:hover {
             background: rgba(200, 200, 200, .6);
