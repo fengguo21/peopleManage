@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="ent-resource-sidebar-toggle" @click="toggle">
-      <svg-icon class="toggle" :class="{'isopen':showMenu}"  icon-class="toggle"/>
+      <i class="el-icon-arrow-left toggle"  :class="{'isopen':showMenu}"/>
+
+<!--      <svg-icon class="toggle" :class="{'isopen':showMenu}"  icon-class="toggle"/>-->
     </div>
     <transition name="toggle">
       <div v-show="showMenu" class="ent-issues-sidebar">
@@ -136,8 +138,8 @@ export default {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 10px;
+    font-weight: 900;
     width: 10px;
     text-align: center;
     border-left: 1px solid #e4eaed;
@@ -146,6 +148,7 @@ export default {
     border-left-color: rgb(228, 234, 237);
     .toggle{
       color: #8c92a4;
+      font-width: 900;
       &.isopen{
         transform: rotate(180deg);
       }
