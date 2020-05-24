@@ -96,6 +96,7 @@ export default {
       left: 0;
       position: absolute;
       min-width: 220px;
+      max-width: 400px;
       min-height: 142px;
       border: 0;
       border-radius: 0;
@@ -148,6 +149,9 @@ export default {
         overflow-y: auto;
 
         .item {
+
+          text-overflow:ellipsis;
+          overflow:hidden;
           white-space: nowrap;
           line-height: 1.333;
           padding-top: 0.7142857rem !important;
