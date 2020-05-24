@@ -149,7 +149,6 @@ export default {
         overflow-y: auto;
 
         .item {
-
           text-overflow:ellipsis;
           overflow:hidden;
           white-space: nowrap;
