@@ -1,22 +1,30 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">44</div>
-    <people-manage :selected-persons="selectedPersons"/>
-    <span>{{selectedItem?selectedItem.name:''}}</span>
-    <select_mti :list="list" @load="loadmore" :current="selectedItem" @search="search($event)" palaceholder="搜索里程碑..."
-                @selectItem="selectItem($event)"></select_mti>
+    <div class="content">
+      <div class="dashboard-text">44</div>
+      <people-manage :selected-persons="selectedPersons"/>
+      <span>{{selectedItem?selectedItem.name:''}}</span>
+      <select_mti :list="list" @load="loadmore" :current="selectedItem" @search="search($event)" palaceholder="搜索里程碑..."
+                  @selectItem="selectItem($event)"></select_mti>
+    </div>
+    <div>
+      <side_bar></side_bar>
+    </div>
   </div>
+
 </template>
 
 <script>
 import peopleManage from './peopleManage'
 import select_mti from './select_mti'
+import side_bar from './side_bar'
 
 export default {
   name: 'Dashboard',
   components: {
     peopleManage,
-    select_mti
+    select_mti,
+    side_bar
   },
   data() {
     return {
@@ -81,14 +89,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .dashboard {
-    &-container {
-      margin: 30px;
-    }
+  .dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 50px);
 
-    &-text {
-      font-size: 30px;
-      line-height: 46px;
+    .content {
+      height: 100%;
+      flex: 1;
+      min-height: 100%;
     }
+  }
+
+  .dashboard-text {
+    font-size: 30px;
+    line-height: 46px;
   }
 </style>
