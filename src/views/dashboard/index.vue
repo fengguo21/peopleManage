@@ -10,6 +10,7 @@
     <div>
       <side_bar></side_bar>
     </div>
+    <table_mti :list="mylist"/>
   </div>
 
 </template>
@@ -17,6 +18,7 @@
 <script>
 import peopleManage from './peopleManage'
 import select_mti from './select_mti'
+import table_mti from './table_mti'
 import side_bar from './side_bar'
 
 export default {
@@ -24,10 +26,25 @@ export default {
   components: {
     peopleManage,
     select_mti,
-    side_bar
+    side_bar,
+    table_mti
   },
   data() {
     return {
+      mylist: [
+        {
+          name: 'zhang', age: 15, job: 'teacher',
+          children: [{name: 'zhang', age: 15, job: 'teacher'},
+            {name: 'zhang', age: 15, job: 'teacher',children:[ {name: 'zhang', age: 15, job: 'teacher'},
+                {name: 'zhang', age: 15, job: 'teacher'},]}]
+        },
+        {name: 'zhang', age: 15, job: 'teacher'},
+        {name: 'zhang', age: 15, job: 'teacher'},
+        {name: 'zhang', age: 15, job: 'teacher'},
+        {name: 'zhang', age: 15, job: 'teacher'},
+        {name: 'zhang', age: 15, job: 'teacher'},
+        {name: 'zhang', age: 15, job: 'teacher'}
+      ],
       list: [
         {id: 1, name: '无里程sadfgdsf sdfg dg sdfgsfsgfsdfa是的风格是的风格是的风格是的风格碑'},
         {id: 2, name: '无里程碑'},
