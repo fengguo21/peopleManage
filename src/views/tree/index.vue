@@ -47,13 +47,6 @@ export default {
       }, {
         id: 3,
         label: 'Level one 3',
-        children: [{
-          id: 7,
-          label: 'Level two 3-1'
-        }, {
-          id: 8,
-          label: 'Level two 3-2'
-        }]
       }],
       defaultProps: {
         children: 'children',
