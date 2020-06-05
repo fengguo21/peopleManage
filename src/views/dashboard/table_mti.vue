@@ -2,8 +2,9 @@
   <div>
     <div class="table">
       <template v-for="(item,index) in list">
+        <span class="hasChild" :class="{'expand':item['isexpand']}" v-if="item.children" @click="expand(index)"></span>
+
         <div class="tr" :key="'p'+index">
-          <span class="hasChild" :class="{'expand':item['isexpand']}" v-if="item.children" @click="expand(index)"></span>
           <span>{{index}}</span>
           <span @click="clickitem(item)">{{item.name}}</span>
           <span>{{item.age}}</span>
@@ -93,8 +94,8 @@ export default {
         /*background: black;*/
         margin-left: -20px;
 
-        border: 10px solid transparent;
-        border-top: 10px solid #AFABAB;
+        /*border: 10px solid transparent;*/
+        /*border-top: 10px solid #AFABAB;*/
         position: relative;
         top: 2px;
         transform: rotate(270deg);

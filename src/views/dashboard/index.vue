@@ -9,7 +9,7 @@
     <div>
       <!--      <side_bar></side_bar>-->
     </div>
-<!--    <table_mti @showDetail="showDetail($event)" :list="mylist"/>-->
+    <table_mti @showDetail="showDetail($event)" :list="mylist"/>
     <mti_button medium @click="clickButton">创建</mti_button>
     <mti_button medium><i class="el-icon-plus"/> 新建任务</mti_button>
     <mti_button basic>新建任务</mti_button>
@@ -35,6 +35,7 @@ export default {
   },
   data() {
     return {
+
       mylist: [
         {
           name: 'zhang', age: 15, job: 'teacher', id: 1,
