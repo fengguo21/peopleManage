@@ -1,28 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <!--    <div class="content">-->
-    <!--      <div class="dashboard-text">44</div>-->
-    <!--      <people-manage :selected-persons="selectedPersons"/>-->
-    <!--      <span>{{selectedItem?selectedItem.name:''}}</span>-->
-
-    <!--    </div>-->
-    <div>
-      <!--      <side_bar></side_bar>-->
-    </div>
-    <!--    <table_mti @showDetail="showDetail($event)" :list="mylist"/>-->
-    <mti_button medium @click="clickButton">创建</mti_button>
-    <mti_button medium><i class="el-icon-plus" /> 新建任务</mti_button>
-    <mti_button basic>新建任务</mti_button>
-    <select_mti
-
-      :list="list"
-      :current="selectedItem"
-      palaceholder="搜索里程碑..."
-      @load="loadmore"
-      @search="search($event)"
-      @selectItem="selectItem($event)"
-    />
-    <input @input="searchData($event)">
+    <vue-wangeditor ref="editor"  uploadImgUrl="http://www.wangeditor.com/" :menus="menus" id="editor" v-model="text" :isRealtime="true" @change="changeCotent"/>
   </div>
 
 </template>
@@ -30,23 +8,66 @@
 <script>
 import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
-
-
 import peopleManage from './peopleManage'
 import select_mti from './select_mti'
 import table_mti from './table_mti'
 import side_bar from './side_bar'
 const subject =  new Subject()
+import vueWangeditor from 'vue-wangeditor'
 export default {
   name: 'Dashboard',
   components: {
     peopleManage,
     select_mti,
     side_bar,
-    table_mti
+    table_mti,
+    vueWangeditor
   },
   data() {
     return {
+      hideLinkImg:'true',
+      menus:[
+        'source',	// 源码模式
+        '|',
+        'bold',	// 粗体
+        'underline',	// 下划线
+        'italic',	// 斜体
+        'strikethrough',	// 中线
+        'eraser',	// 清空格式
+        'forecolor',	// 文字颜色
+        'bgcolor',	// 背景颜色
+        '|',
+        'quote',	// 引用
+        'fontfamily',	// 字体
+        'fontsize',	// 字号
+        'head',	// 标题
+        'unorderlist',	// 无序列表
+        'orderlist',	// 有序列表
+        'alignleft',	// 左对齐
+        'aligncenter',	// 居中
+        'alignright',	// 右对齐
+        '|',
+        'link',	// 链接
+        'unlink',	// 取消链接
+        'table',	// 表格
+        'emotion',	// 表情
+        '|',
+        'img',	// 图片
+        // 'video',	// 视频
+        // 'location',	// 位置
+        // 'insertcode',	// 插入代码
+        '|',
+        'undo',	// 撤销
+        'redo',	// 重做
+        'fullscreen'	// 全屏
+      ],
+      text:'',
+      // input content to editor
+      content: 'base on wangeditor',
+      // output content from editor
+      result: '',
+      // set image upload api url
+      path: '/api/v1/help/upload/wangEditorH5File',
 
 
       mylist: [
@@ -118,6 +139,10 @@ export default {
     })
   },
   methods: {
+    changeCotent(){
+
+      console.log(this.$refs.editor.getHtml(),'--------')
+    },
     searchData(val) {
       console.log(val,)
       subject.next(val.target.value)
@@ -129,7 +154,7 @@ export default {
       console.log(item.id, 'parteng=======')
     },
     search(e) {
-      console.log('search', e)
+      subject.next(e)
     },
     selectItem(item) {
       this.selectedItem = item
