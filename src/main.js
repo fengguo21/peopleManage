@@ -11,7 +11,11 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+// 引入
+import SMEditor from 'smeditor'
 
+// 全局组件
+Vue.use(SMEditor)
 import '@/icons' // icon
 import '@/components'
 import '@/permission' // permission control
