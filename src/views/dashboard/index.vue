@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <vue-wangeditor ref="editor"  uploadImgUrl="http://www.wangeditor.com/" :menus="menus" id="editor" v-model="text" :isRealtime="true" @change="changeCotent"/>
+    <vue-wangeditor ref="editor"   :menus="menus" id="editor" v-model="text" :isRealtime="true" @change="changeCotent"/>
   </div>
 
 </template>
@@ -139,6 +139,7 @@ export default {
   },
   methods: {
     changeCotent(){
+
 
       console.log(this.$refs.editor.getHtml(),'--------')
     },
